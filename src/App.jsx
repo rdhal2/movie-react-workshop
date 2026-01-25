@@ -1,101 +1,49 @@
 import { useMemo, useState } from "react";
-import MovieList from "./components/MovieList";
 import NewMovieForm from "./components/NewMovieForm";
+import MovieCard from "./components/MovieCard";
 
 const INITIAL_MOVIES = [
-  {
-    _id: "m1",
-    title: "The Dark Knight",
-    year: 2008,
-    genre: "Action",
-    likes: 0,
-    watched: false,
-  },
-  {
-    _id: "m2",
-    title: "La La Land",
-    year: 2016,
-    genre: "Musical",
-    likes: 0,
-    watched: true,
-  },
-  {
-    _id: "m3",
-    title: "Get Out",
-    year: 2017,
-    genre: "Thriller",
-    likes: 0,
-    watched: false,
-  },
+  { _id: "m1", title: "The Dark Knight", year: 2008, genre: "Action", watched: false, liked: false },
+  { _id: "m2", title: "La La Land", year: 2016, genre: "Musical", watched: true, liked: false },
+  { _id: "m3", title: "Get Out", year: 2017, genre: "Thriller", watched: false, liked: false },
 ];
 
 export default function App() {
+
+  /* code */ 
+
   const [movies, setMovies] = useState(INITIAL_MOVIES);
   const [query, setQuery] = useState("");
 
+
+  /* This code decides which movies are shown on the screen based on what the user typed in the search bar. 
+  “visibleMovies is just the list we actually show on screen.
+  If the search bar is empty, it shows everything.
+  If the user types, we filter the list.”
+  */
   const visibleMovies = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return movies;
-    return movies.filter((m) => {
-      const haystack = `${m.title} ${m.genre} ${m.year}`.toLowerCase();
-      return haystack.includes(q);
-    });
+    if (!q) return movies; /* if the search bar is empty, show all movies */
+    return movies.filter((m) =>
+      `${m.title} ${m.genre} ${m.year}`.toLowerCase().includes(q)
+    );
   }, [movies, query]);
 
-  function handleAddMovie(newMovie) {
-    setMovies((prev) => [newMovie, ...prev]);
-  }
 
-  function handleLike(movieId) {
-    setMovies((prev) =>
-      prev.map((m) => (m._id === movieId ? { ...m, likes: m.likes + 1 } : m))
-    );
-  }
+ 
 
-  function handleToggleWatched(movieId) {
-    setMovies((prev) =>
-      prev.map((m) =>
-        m._id === movieId ? { ...m, watched: !m.watched } : m
-      )
-    );
-  }
-
-  function handleDelete(movieId) {
-    setMovies((prev) => prev.filter((m) => m._id !== movieId));
-  }
 
   return (
     <div style={{ maxWidth: 900, margin: "32px auto", padding: 16 }}>
-      <header style={{ marginBottom: 16 }}>
-        <h1 style={{ margin: 0 }}>🎬 Movie Watchlist Dashboard</h1>
-        <p style={{ marginTop: 8, color: "#555" }}>
-          React basics: components, JSX, state, props, lists. (Mongo-ready docs
-          with <code>_id</code>, but no database today.)
-        </p>
-      </header>
+      <h1>🎬 Movie Watchlist</h1>
 
-      <section style={{ display: "grid", gap: 12, marginBottom: 16 }}>
-        <NewMovieForm onAddMovie={handleAddMovie} />
+      <p style={{ color: "#555" }}>
+        Starter app for the React workshop. We will add interactivity step by step.
+      </p>
+  
 
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search title, genre, or year…"
-            style={{ flex: 1, padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
-          />
-          <span style={{ color: "#555" }}>
-            Showing <b>{visibleMovies.length}</b> / {movies.length}
-          </span>
-        </div>
-      </section>
+      
 
-      <MovieList
-        movies={visibleMovies}
-        onLike={handleLike}
-        onToggleWatched={handleToggleWatched}
-        onDelete={handleDelete}
-      />
     </div>
   );
 }
