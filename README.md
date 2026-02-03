@@ -1,3 +1,17 @@
+
+# Introduction to React.js
+
+# Initalizing React website locally!
+
+- Ideally have an IDE
+- Install node.js to run a "localhost" site. Node.js — (nodejs.org)
+- Use node -v in Check if node is updated
+- Run npm create vite@latest -- --template react to create the starting files
+- Move to the folder/directory with package.json with cd directory in your terminal
+- Run npm run dev in your terminal to start running your site locally
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
