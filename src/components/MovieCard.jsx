@@ -1,12 +1,3 @@
-/*
-=====================================================
-WORKSHOP STEP 4 — COMPONENTS + PROPS
-WHAT TO SAY:
-"This is a component. It receives data via props
-and decides how to display it."
-=====================================================
-*/
-
 export default function MovieCard({ movie, onLike, onToggleWatched }) {
   return (
     <div

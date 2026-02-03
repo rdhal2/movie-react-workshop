@@ -13,7 +13,7 @@ export default function MovieList({ movies, onLike, onToggleWatched, onDelete })
     <div style={{ display: "grid", gap: 12 }}>
       {movies.map((movie) => (
         <MovieCard
-          key={movie._id} // Mongo-style stable key
+          key={movie._id} 
           movie={movie}
           onLike={onLike}
           onToggleWatched={onToggleWatched}
